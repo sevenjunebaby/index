@@ -1,0 +1,132 @@
+import { useEffect } from "react";
+
+export default function PurevaWebsite() {
+  useEffect(() => {
+    document.title = "PUREVA - Premium Water Filtration";
+  }, []);
+
+  // wallpaper kept (fixed for reliability)
+  const bgImage =
+    "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1600&q=80";
+
+  const Button = ({ children, className = "", ...props }) => (
+    <button
+      {...props}
+      className={"px-5 py-2 rounded-xl font-semibold transition " + className}
+    >
+      {children}
+    </button>
+  );
+
+  return (
+    <div className="min-h-screen text-white overflow-x-hidden relative">
+
+      {/* NAVBAR */}
+      <div className="fixed top-0 left-0 w-full z-50 bg-black/40 backdrop-blur-md flex justify-center gap-6 py-3 text-sm">
+        <a href="#about" className="hover:text-cyan-300">About</a>
+        <a href="#features" className="hover:text-cyan-300">Features</a>
+        <a href="#product" className="hover:text-cyan-300">Product</a>
+        <a href="#contact" className="hover:text-cyan-300">Contact</a>
+      </div>
+
+      {/* BACKGROUND (wallpaper preserved) */}
+      <div className="absolute inset-0 -z-10">
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-40"
+          style={{ backgroundImage: `url(${bgImage})` }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-950 via-cyan-900 to-emerald-950 opacity-80" />
+      </div>
+
+      {/* HERO */}
+      <section
+        className="relative flex flex-col items-center justify-center text-center h-screen px-6"
+        style={{
+          backgroundImage: `url(${bgImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <div className="absolute inset-0 bg-black/60" />
+
+        <h1 className="relative text-5xl md:text-7xl font-bold tracking-tight">
+          PUREVA
+        </h1>
+
+        <p className="relative mt-4 text-lg md:text-xl max-w-2xl text-gray-100">
+          Premium water filtration system for pure, healthy and safe drinking water.
+        </p>
+
+        <div className="relative mt-8 flex gap-4 flex-wrap justify-center">
+          <Button className="bg-cyan-400 text-black hover:bg-cyan-300">
+            Buy Now
+          </Button>
+          <Button className="border border-cyan-300 text-cyan-200">
+            Learn More
+          </Button>
+        </div>
+      </section>
+
+      {/* ABOUT */}
+      <section id="about" className="py-20 px-6 max-w-6xl mx-auto bg-black/20 rounded-2xl backdrop-blur-sm">
+        <h2 className="text-3xl font-bold mb-6 text-cyan-300">About PUREVA</h2>
+        <p className="text-gray-200">
+          PUREVA is a modern water purification company dedicated to delivering ultra-clean and safe drinking water.
+          Our advanced filtration technology removes impurities, chemicals, and harmful particles for healthier living.
+        </p>
+      </section>
+
+      {/* FEATURES */}
+      <section id="features" className="py-20 px-6">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-6">
+          {[
+            { title: "99.9% Purification", desc: "Removes bacteria and contaminants." },
+            { title: "Eco Friendly", desc: "Sustainable water filtration system." },
+            { title: "Easy Setup", desc: "Quick installation for home use." },
+          ].map((item, i) => (
+            <div
+              key={i}
+              className="bg-white/10 border border-white/20 backdrop-blur-xl p-6 rounded-2xl"
+            >
+              <h3 className="text-xl font-semibold mb-2 text-cyan-200">
+                {item.title}
+              </h3>
+              <p className="text-gray-200">{item.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* PRODUCT */}
+      <section id="product" className="py-20 px-6 text-center">
+        <h2 className="text-3xl font-bold text-cyan-300">PUREVA System</h2>
+        <p className="text-gray-300 mt-4 max-w-2xl mx-auto">
+          A next-generation water filter designed to deliver crystal-clear water directly to your home.
+        </p>
+      </section>
+
+      {/* CONTACT */}
+      <section id="contact" className="py-20 px-6 bg-black/30 text-center">
+        <h2 className="text-3xl font-bold text-cyan-300">Contact PUREVA</h2>
+        <p className="text-gray-300 mt-2">
+          Get pure water solutions for your home or business.
+        </p>
+        <p className="text-cyan-200 mt-4 font-semibold">
+          Phone: +216 70 100 100
+        </p>
+        <p className="text-cyan-200 mt-2 font-semibold">
+          Email: pureva.pureva@gmail.com
+        </p>
+
+        <Button className="mt-6 bg-cyan-400 text-black hover:bg-cyan-300">
+          Get in Touch
+        </Button>
+      </section>
+
+      {/* FOOTER */}
+      <footer className="py-10 text-center text-gray-400 text-sm">
+        © 2026 PUREVA. All rights reserved.
+      </footer>
+    </div>
+  );
+}
