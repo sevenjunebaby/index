@@ -1,198 +1,793 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Eco Water Filter</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BROOKSTONE - Investment Platform</title>
 
 <style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #06121a;
-  color: #cce7ff;
-  overflow-x: hidden;
+:root{
+  --primary:#ffd166;
+  --accent:#ffb703;
+  --text:#f8fafc;
+  --muted:#e2e8f0;
+  --glass:rgba(255,255,255,0.10);
+  --border:rgba(255,255,255,0.16);
+  --dark:rgba(0,0,0,0.52);
 }
 
-/* HEADER */
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px 50px;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;
 }
 
-.logo {
-  font-size: 28px;
-  font-weight: bold;
-  color: #4fc3f7;
-  transform: perspective(500px) rotateY(20deg);
-  transition: 0.5s;
+html{scroll-behavior:smooth;}
+
+section{scroll-margin-top:90px;}
+
+body{
+  color:var(--text);
+  background:url('https://images.unsplash.com/photo-1483303884357-8a4e90f9d62d?q=80&w=1139&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') center/cover no-repeat fixed;
+  min-height:100vh;
 }
 
-.logo:hover {
-  transform: perspective(500px) rotateY(0deg) scale(1.1);
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.38);
+  z-index:-1;
 }
 
-/* HERO */
-.hero {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 60px;
+/* ── NAVBAR ── */
+.navbar{
+  position:fixed;
+  top:0;
+  width:100%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 6%;
+  background:rgba(0,0,0,0.38);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  z-index:1000;
 }
 
-.text {
-  max-width: 500px;
+.logo{
+  font-weight:800;
+  font-size:18px;
+  letter-spacing:3px;
+  color:var(--primary);
 }
 
-.text h1 {
-  font-size: 48px;
-  color: #4fc3f7;
+.nav-links{
+  display:flex;
+  gap:26px;
 }
 
-.text p {
-  color: #9ed4ff;
+.nav-links a{
+  color:var(--primary);
+  text-decoration:none;
+  font-size:14px;
+  opacity:0.92;
+  transition:0.25s;
 }
 
-.btn {
-  padding: 12px 25px;
-  border: none;
-  background: linear-gradient(45deg, #4fc3f7, #0288d1);
-  color: #001018;
-  cursor: pointer;
-  margin-top: 20px;
-  transition: 0.3s;
+.nav-links a:hover{
+  color:#fff;
+  opacity:1;
 }
 
-.btn:hover {
-  transform: scale(1.05);
+/* hamburger — hidden on desktop */
+.hamburger{
+  display:none;
+  flex-direction:column;
+  gap:5px;
+  cursor:pointer;
+  background:none;
+  border:none;
+  padding:4px;
 }
 
-/* PRODUCT BOTTLE */
-.product {
-  width: 180px;
-  height: 420px;
-  position: relative;
-  transform-style: preserve-3d;
-  transition: 0.5s;
+.hamburger span{
+  display:block;
+  width:22px;
+  height:2px;
+  background:var(--primary);
+  border-radius:2px;
+  transition:0.3s;
 }
 
-/* bottle body */
-.bottle {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 90px 90px 40px 40px;
-  background: linear-gradient(145deg, #0d2a3a, #0a1f2b);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.8);
-  overflow: hidden;
+.mobile-menu{
+  display:none;
+  position:fixed;
+  top:58px;
+  left:0;
+  width:100%;
+  background:rgba(0,0,0,0.88);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+  z-index:999;
+  flex-direction:column;
+  padding:16px 6%;
+  gap:16px;
 }
 
-/* water animation */
-.water {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 60%;
-  background: linear-gradient(#4fc3f7, #0288d1);
-  animation: wave 3s infinite ease-in-out;
-  border-radius: 50%;
-  opacity: 0.8;
+.mobile-menu.open{display:flex;}
+
+.mobile-menu a{
+  color:var(--primary);
+  text-decoration:none;
+  font-size:16px;
+  padding:6px 0;
+  border-bottom:1px solid var(--border);
 }
 
-/* bottle cap */
-.cap {
-  position: absolute;
-  top: -40px;
-  left: 35%;
-  width: 50px;
-  height: 50px;
-  background: #0288d1;
-  border-radius: 10px;
+/* ── HERO ── */
+.hero{
+  height:120vh;
+  display:flex;
+  align-items:center;
+  padding:0 8%;
 }
 
-/* FEATURES */
-.features {
-  padding: 50px;
-  display: flex;
-  justify-content: space-around;
+.hero-content{
+  max-width:700px;
+  background:var(--dark);
+  padding:44px 40px;
+  border-radius:24px;
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  border:1px solid var(--border);
 }
 
-.card {
-  width: 200px;
-  padding: 20px;
-  background: #0b1e29;
-  border-radius: 15px;
-  text-align: center;
-  transition: 0.3s;
+.hero-tag{
+  display:inline-block;
+  background:rgba(255,209,102,0.15);
+  color:var(--primary);
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:2px;
+  padding:5px 14px;
+  border-radius:100px;
+  border:1px solid rgba(255,209,102,0.35);
+  margin-bottom:18px;
+  text-transform:uppercase;
 }
 
-.card:hover {
-  transform: translateY(-10px);
+.hero h1{
+  font-size:66px;
+  font-weight:900;
+  color:var(--primary);
+  letter-spacing:2px;
+  line-height:1.05;
 }
 
-/* FOOTER */
-footer {
-  text-align: center;
-  padding: 20px;
-  color: #4fc3f7;
+.hero p{
+  margin-top:14px;
+  color:var(--muted);
+  line-height:1.7;
+  font-size:16px;
+  max-width:560px;
 }
 
-/* ANIMATIONS */
-@keyframes wave {
-  0% { transform: translateY(0) scaleX(1); }
-  50% { transform: translateY(-10px) scaleX(1.05); }
-  100% { transform: translateY(0) scaleX(1); }
+.hero-btns{
+  display:flex;
+  gap:14px;
+  margin-top:26px;
+  flex-wrap:wrap;
+}
+
+.btn{
+  padding:13px 28px;
+  border-radius:14px;
+  border:none;
+  cursor:pointer;
+  background:linear-gradient(90deg,var(--primary),var(--accent));
+  color:#1a1300;
+  font-weight:800;
+  font-size:14px;
+  transition:0.25s;
+  text-decoration:none;
+  display:inline-block;
+}
+
+.btn:hover{transform:translateY(-2px);}
+
+.btn-outline{
+  padding:13px 28px;
+  border-radius:14px;
+  border:1px solid var(--primary);
+  cursor:pointer;
+  background:transparent;
+  color:var(--primary);
+  font-weight:700;
+  font-size:14px;
+  transition:0.25s;
+  text-decoration:none;
+  display:inline-block;
+}
+
+.btn-outline:hover{
+  background:rgba(255,209,102,0.1);
+  transform:translateY(-2px);
+}
+
+/* ── STATS BAR ── */
+.stats-bar{
+  max-width:1100px;
+  margin:0 auto 0;
+  padding:0 20px;
+  transform:translateY(-36px);
+}
+
+.stats-inner{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  background:rgba(0,0,0,0.60);
+  border:1px solid var(--border);
+  border-radius:20px;
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  overflow:hidden;
+}
+
+.stat-item{
+  padding:22px 28px;
+  text-align:center;
+  border-right:1px solid var(--border);
+}
+
+.stat-item:last-child{border-right:none;}
+
+.stat-num{
+  font-size:28px;
+  font-weight:900;
+  color:var(--primary);
+}
+
+.stat-label{
+  font-size:12px;
+  color:var(--muted);
+  margin-top:4px;
+  letter-spacing:0.5px;
+}
+
+/* ── GENERIC SECTION ── */
+.section{
+  max-width:1100px;
+  margin:30px auto;
+  padding:64px 40px;
+  background:var(--dark);
+  border:1px solid var(--border);
+  border-radius:24px;
+  text-align:center;
+  backdrop-filter:blur(6px);
+  -webkit-backdrop-filter:blur(6px);
+}
+
+.section h2{
+  color:var(--primary);
+  margin-bottom:10px;
+  font-size:34px;
+  font-weight:800;
+  letter-spacing:1px;
+}
+
+.section .sub{
+  color:var(--muted);
+  max-width:680px;
+  margin:0 auto 30px;
+  line-height:1.7;
+}
+
+/* ── CARDS ── */
+.card-container{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:18px;
+  margin-top:30px;
+}
+
+.card{
+  background:var(--glass);
+  border:1px solid var(--border);
+  padding:26px 22px;
+  border-radius:20px;
+  text-align:left;
+  transition:0.3s;
+  position:relative;
+  overflow:hidden;
+}
+
+.card::before{
+  content:"";
+  position:absolute;
+  top:-40px;
+  right:-40px;
+  width:120px;
+  height:120px;
+  background:rgba(255,209,102,0.06);
+  border-radius:50%;
+}
+
+.card:hover{
+  transform:translateY(-6px);
+  border-color:var(--primary);
+  background:rgba(255,209,102,0.07);
+}
+
+
+.card h3{
+  color:var(--primary);
+  margin-bottom:8px;
+  font-size:17px;
+  font-weight:700;
+}
+
+.card p{
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.6;
+}
+
+/* ── INVESTMENT TIERS ── */
+.invest-card{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  text-align:left;
+  cursor:default;
+}
+
+.invest-card.featured{
+  border-color:var(--primary);
+  background:rgba(255,209,102,0.10);
+}
+
+.tier-badge{
+  display:inline-block;
+  background:rgba(255,209,102,0.20);
+  color:var(--primary);
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:1.5px;
+  padding:3px 10px;
+  border-radius:100px;
+  border:1px solid rgba(255,209,102,0.4);
+  text-transform:uppercase;
+  margin-bottom:4px;
+  width:fit-content;
+}
+
+.tier-badge.hot{
+  background:rgba(255,87,51,0.18);
+  color:#ff8c6a;
+  border-color:rgba(255,87,51,0.35);
+}
+
+.invest-range{
+  font-size:22px;
+  font-weight:800;
+  color:var(--primary);
+  margin:6px 0;
+}
+
+.invest-card ul{
+  list-style:none;
+  padding:0;
+  margin:10px 0;
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+}
+
+.invest-card ul li{
+  font-size:13px;
+  color:var(--muted);
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.invest-card ul li::before{
+  content:"";
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--accent);
+  flex-shrink:0;
+}
+
+.invest-card .btn{
+  margin-top:8px;
+  width:100%;
+  text-align:center;
+  padding:11px;
+  font-size:13px;
+}
+
+/* ── CONTACT ── */
+.contact-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:24px;
+  margin-top:30px;
+  text-align:left;
+}
+
+.contact-info{
+  background:var(--glass);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:28px;
+}
+
+.contact-info h3{
+  color:var(--primary);
+  margin-bottom:18px;
+  font-size:18px;
+}
+
+.contact-row{
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+  margin-bottom:16px;
+}
+
+.contact-row:last-child{margin-bottom:0;}
+
+.contact-row-icon{
+  width:36px;
+  height:36px;
+  border-radius:10px;
+  background:rgba(255,209,102,0.12);
+  border:1px solid rgba(255,209,102,0.3);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:15px;
+  flex-shrink:0;
+}
+
+.contact-row-text strong{
+  display:block;
+  color:var(--primary);
+  font-size:12px;
+  letter-spacing:0.5px;
+  margin-bottom:2px;
+}
+
+.contact-row-text span{
+  color:var(--muted);
+  font-size:14px;
+}
+
+.contact-form{
+  background:var(--glass);
+  border:1px solid var(--border);
+  border-radius:20px;
+  padding:28px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+}
+
+.contact-form h3{
+  color:var(--primary);
+  font-size:18px;
+  margin-bottom:4px;
+}
+
+.contact-form input,
+.contact-form textarea{
+  width:100%;
+  padding:11px 14px;
+  border-radius:12px;
+  border:1px solid var(--border);
+  background:rgba(0,0,0,0.30);
+  color:#fff;
+  font-size:14px;
+  outline:none;
+  transition:border 0.25s;
+  font-family:inherit;
+  resize:none;
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder{color:rgba(255,255,255,0.35);}
+
+.contact-form input:focus,
+.contact-form textarea:focus{border-color:var(--primary);}
+
+.contact-form .btn{
+  width:100%;
+  text-align:center;
+  padding:12px;
+}
+
+/* ── FOOTER ── */
+footer{
+  text-align:center;
+  padding:28px 20px;
+  margin-top:20px;
+  color:var(--muted);
+  font-size:13px;
+  border-top:1px solid var(--border);
+  background:rgba(0,0,0,0.40);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+
+.footer-inner{
+  max-width:1100px;
+  margin:0 auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:12px;
+}
+
+.footer-logo{
+  font-weight:800;
+  letter-spacing:2px;
+  color:var(--primary);
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .nav-links{display:none;}
+  .hamburger{display:flex;}
+
+  .hero h1{font-size:44px;}
+  .hero-content{padding:30px 24px;}
+
+  .stats-inner{grid-template-columns:1fr 1fr;}
+  .stat-item{border-right:none;border-bottom:1px solid var(--border);}
+  .stat-item:last-child{border-bottom:none;}
+
+  .section{padding:44px 20px;margin:20px 12px;}
+
+  .contact-grid{grid-template-columns:1fr;}
+
+  .footer-inner{flex-direction:column;text-align:center;}
 }
 </style>
 </head>
-
 <body>
 
-<header>
-  <div class="logo">ECO FILTER</div>
-  <nav>
-    <a style="color:#cce7ff; margin-right:20px;">Home</a>
-    <a style="color:#cce7ff; margin-right:20px;">Technology</a>
-    <a style="color:#cce7ff;">Contact</a>
-  </nav>
-</header>
-
-<section class="hero">
-  <div class="text">
-    <h1>Pure Water. Zero Compromise.</h1>
-    <p>Advanced eco water filter designed to remove impurities and deliver clean, safe drinking water with sustainable technology.</p>
-    <button class="btn">Buy Now</button>
+<!-- NAVBAR -->
+<div class="navbar">
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#sectors">Sectors</a>
+    <a href="#invest">Invest</a>
+    <a href="#contact">Contact</a>
   </div>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</div>
 
-  <div class="product" id="product">
-    <div class="cap"></div>
-    <div class="bottle">
-      <div class="water"></div>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#about"    onclick="closeMobile()">About</a>
+  <a href="#sectors"  onclick="closeMobile()">Sectors</a>
+  <a href="#invest"   onclick="closeMobile()">Invest</a>
+  <a href="#contact"  onclick="closeMobile()">Contact</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <span class="hero-tag">Sustainable Investment</span>
+    <h1>BROOKSTONE</h1>
+    <p>An investment firm focused on eco-friendly innovation — clean energy, circular recycling, and next-generation water solutions shaping global industries.</p>
+    <div class="hero-btns">
+      <a href="#invest" class="btn">Explore Investments</a>
+      <a href="#about"  class="btn-outline">Learn More</a>
     </div>
   </div>
 </section>
 
-<section class="features">
-  <div class="card">99.9% Filtration</div>
-  <div class="card">Eco Materials</div>
-  <div class="card">Long Life Filter</div>
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="stat-num">$2.4B+</div>
+      <div class="stat-label">Assets Under Management</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">140+</div>
+      <div class="stat-label">Portfolio Companies</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">18</div>
+      <div class="stat-label">Countries Reached</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">92%</div>
+      <div class="stat-label">Positive Exit Rate</div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <h2>About BROOKSTONE</h2>
+  <p class="sub">We invest in sustainable technologies and visionary founders building the future of global industries. Our approach combines deep sector expertise with long-term partnership to create real, lasting impact.</p>
+  <div class="card-container">
+    <div class="card">
+      <h3>Global Reach</h3>
+      <p>Active across 18 countries with local expertise and an international network of partners and co-investors.</p>
+    </div>
+    <div class="card">
+      <h3>Long-Term Mindset</h3>
+      <p>We build relationships, not transactions. Our average hold period is 7+ years, supporting founders through every stage.</p>
+    </div>
+    <div class="card">
+      <h3>Proven Returns</h3>
+      <p>Consistent top-quartile performance with a track record spanning over a decade of sustainable investments.</p>
+    </div>
+  </div>
 </section>
 
+<!-- SECTORS -->
+<section class="section" id="sectors">
+  <h2>Investment Sectors</h2>
+  <p class="sub">We focus on three interconnected pillars of the green economy — each essential to a sustainable future.</p>
+  <div class="card-container">
+    <div class="card">
+      <h3>Clean Energy</h3>
+      <p>Solar, wind, hydrogen, and next-gen grid technology. We back companies making renewable energy scalable and affordable worldwide.</p>
+    </div>
+    <div class="card">
+      <h3>Recycling & Circularity</h3>
+      <p>Circular economy solutions that eliminate waste, recover materials, and redesign supply chains for a zero-waste future.</p>
+    </div>
+    <div class="card">
+      <h3>Water Technology</h3>
+      <p>Advanced purification, smart water management, and desalination innovations ensuring clean water access globally.</p>
+    </div>
+  </div>
+</section>
+
+<!-- INVEST -->
+<section class="section" id="invest">
+  <h2>Investment Tiers</h2>
+  <p class="sub">Whether you're an individual investor or an institution, we offer structured entry points to participate in the green economy.</p>
+  <div class="card-container">
+
+    <div class="card invest-card">
+      <span class="tier-badge">Seed Stage</span>
+      <h3>Seed</h3>
+      <div class="invest-range">$50K – $500K</div>
+      <p style="color:var(--muted);font-size:13px;">Early-stage funding for bold ideas with transformative potential.</p>
+      <ul>
+        <li>Equity stake in founding round</li>
+        <li>Mentorship & advisory access</li>
+        <li>Quarterly portfolio updates</li>
+      </ul>
+      <a href="#contact" class="btn">Enquire Now</a>
+    </div>
+
+    <div class="card invest-card featured">
+      <span class="tier-badge hot">Most Popular</span>
+      <h3>Growth</h3>
+      <div class="invest-range">$500K – $5M</div>
+      <p style="color:var(--muted);font-size:13px;">Scaling proven startups with strong traction and market fit.</p>
+      <ul>
+        <li>Series A / B participation</li>
+        <li>Board observer rights</li>
+        <li>Co-investment opportunities</li>
+        <li>Annual LP summit access</li>
+      </ul>
+      <a href="#contact" class="btn">Enquire Now</a>
+    </div>
+
+    <div class="card invest-card">
+      <span class="tier-badge">Strategic</span>
+      <h3>Strategy</h3>
+      <div class="invest-range">$5M+</div>
+      <p style="color:var(--muted);font-size:13px;">Long-term institutional partnerships with full portfolio visibility.</p>
+      <ul>
+        <li>Custom mandate structuring</li>
+        <li>Dedicated relationship manager</li>
+        <li>Impact reporting & ESG metrics</li>
+        <li>Direct deal sourcing</li>
+      </ul>
+      <a href="#contact" class="btn">Enquire Now</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section" id="contact">
+  <h2>Get in Touch</h2>
+  <p class="sub">Interested in investing or partnering with us? Reach out and our team will respond within 48 hours.</p>
+  <div class="contact-grid">
+
+    <div class="contact-info">
+      <h3>Contact Details</h3>
+      <div class="contact-row">
+        <div class="contact-row-icon">P</div>
+        <div class="contact-row-text">
+          <strong>Phone</strong>
+          <span>+216 77 007 007</span>
+        </div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-row-icon">@</div>
+        <div class="contact-row-text">
+          <strong>Email</strong>
+          <span>brookstone@gmail.com</span>
+        </div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-row-icon">HQ</div>
+        <div class="contact-row-text">
+          <strong>Head Office</strong>
+          <span>Sousse, Tunisia</span>
+        </div>
+      </div>
+      <div class="contact-row">
+        <div class="contact-row-icon">Hr</div>
+        <div class="contact-row-text">
+          <strong>Working Hours</strong>
+          <span>Mon – Fri, 9:00 – 18:00</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-form">
+      <h3>Send a Message</h3>
+      <input type="text"  placeholder="Your full name" />
+      <input type="email" placeholder="Email address" />
+      <input type="text"  placeholder="Subject" />
+      <textarea rows="4"  placeholder="Your message…"></textarea>
+      <button class="btn" onclick="handleSend(this)">Send Message</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
 <footer>
-  © 2026 Eco Water Filter
+  <div class="footer-inner">
+<p>© 2026 BROOKSTONE Investment. All rights reserved.</p>
+    <p>Sousse, Tunisia</p>
+  </div>
 </footer>
 
 <script>
-const product = document.getElementById('product');
+const hamburger = document.getElementById('hamburger');
+const mobileMenu = document.getElementById('mobile-menu');
 
-document.addEventListener('mousemove', (e) => {
-  let x = (window.innerWidth / 2 - e.pageX) / 30;
-  let y = (window.innerHeight / 2 - e.pageY) / 30;
-  product.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
+hamburger.addEventListener('click', () => {
+  mobileMenu.classList.toggle('open');
 });
-</script>
 
+function closeMobile(){
+  mobileMenu.classList.remove('open');
+}
+
+function handleSend(btn){
+  btn.textContent = 'Message Sent ✓';
+  btn.style.background = 'linear-gradient(90deg,#22c55e,#16a34a)';
+  btn.disabled = true;
+  setTimeout(()=>{
+    btn.textContent = 'Send Message';
+    btn.style.background = '';
+    btn.disabled = false;
+  }, 3000);
+}
+</script>
 </body>
 </html>
